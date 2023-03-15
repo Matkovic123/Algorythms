@@ -1,31 +1,33 @@
-function qs(arr: number[], lo: number, hi: number): void {
-    if (lo >= hi) {
+// https://www.youtube.com/watch?v=SLauY6PpjW4
+function qs(arr: number[], left: number, right: number): void {
+    if (left >= right) {
         return;
     }
-    const pivotIdx = partition(arr, lo, hi);
+    const pivot = arr[Math.floor(left + (right - left) / 2)];
 
-    qs(arr, lo, pivotIdx - 1);
-    qs(arr, pivotIdx + 1, hi);
+    const pivotIndex = partition(arr, left, right, pivot);
+
+    qs(arr, left, pivotIndex - 1);
+    qs(arr, pivotIndex, right);
 }
 
-function partition(arr: number[], lo: number, hi: number): number { // returns pivot index
-
-    const pivot = arr[hi];
-
-    let idx = lo - 1;
-
-    for (let i = lo; i < hi; ++i) {
-        if (arr[i] <= pivot) {
-            idx++;
-            const tmp = arr[i];
-            arr[i] = arr[idx];
-            arr[idx] = tmp;
+function partition(arr: number[], left: number, right: number, pivot: number) {
+    while (left <= right) {
+        while (arr[left] < pivot) {
+            left++;
+        }
+        while (arr[right] > pivot) {
+            right--;
+        }
+        if (left <= right) {
+            const tmp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = tmp;
+            left++;
+            right--;
         }
     }
-    idx++;
-    arr[hi] = arr[idx];
-    arr[idx] = pivot;
-    return idx;
+    return left;
 }
 
 export default function quick_sort(arr: number[]): void {
