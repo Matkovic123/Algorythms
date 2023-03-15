@@ -15,9 +15,9 @@ export default class DoublyLinkedList<T> {
     }
 
     prepend(item: T): void {
-        const newNode = { value: item } as Node<T>;
+        const newNode = { value: item, next: this.head } as Node<T>;
         this.length++;
-        if(!this.head) {
+        if (!this.head) {
             this.head = this.tail = newNode;
             return;
         }
@@ -32,7 +32,7 @@ export default class DoublyLinkedList<T> {
         while (idx !== i) {
             curr = curr?.next;
             i++;
-        };
+        }
         const previous = curr?.previous;
         const next = curr?.next;
         if (!curr) {
@@ -63,7 +63,7 @@ export default class DoublyLinkedList<T> {
         const newNode = { value: item } as Node<T>;
         let curr = this.tail;
         this.length++;
-        if(!curr) {
+        if (!curr) {
             this.head = this.tail = newNode;
             return;
         }
@@ -75,12 +75,12 @@ export default class DoublyLinkedList<T> {
         let curr = this.head;
         let i = 0;
         while (curr?.value != item) {
-            if(i === this.length-1){
+            if (i === this.length - 1) {
                 return undefined;
             }
             curr = curr?.next;
             i++;
-        };
+        }
         const previous = curr?.previous;
         const next = curr?.next;
         if (!curr) {
@@ -121,7 +121,7 @@ export default class DoublyLinkedList<T> {
         while (idx !== i) {
             curr = curr?.next;
             i++;
-        } ;
+        }
         const previous = curr?.previous;
         const next = curr?.next;
         if (!curr) {
@@ -143,11 +143,11 @@ export default class DoublyLinkedList<T> {
             this.head = next;
             return curr?.value;
         }
-        if(!curr.next && !curr.previous) {
+        if (!curr.next && !curr.previous) {
             this.head = this.tail = undefined;
             return curr.value;
         }
-        
+
         return undefined;
     }
 }
